@@ -7,7 +7,7 @@ import SuperPrize from 'app/scenes/super_prize'
 import Adapter from 'app/adapter'
 
 const beginGame = () => {
-    let game = new Engine({ debug: true, stageScaleMode: 'cover', fps: 60 })
+    let game = new Engine({ debug: true, stageScaleMode: 'cover', fps: 60, orientation: 'landscape' })
     game.setStageSize(1780, 750)
     game.launch(Loading, { next: 'Main' })
     game.on('switchScene', (sceneName, ...args) => {
