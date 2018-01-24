@@ -35,7 +35,7 @@ export default class PrimaryPrize extends Scene {
         if (game.isCanvasRotate) {
             this.share = this.addGameObject(new Sprite(game.renderStageZone.left + 50, game.renderStageZone.top + 50, 4, { texture: resources.share_left, visiable: false }))
         } else {
-            this.share = this.addGameObject(new Sprite(game.renderStageZone.right - 30 - resources.share2.sizeWidth, game.renderStageZone.top + 20, 4, { texture: resources.share_right, visiable: false }))
+            this.share = this.addGameObject(new Sprite(game.renderStageZone.right - 30 - resources.share_right.sizeWidth, game.renderStageZone.top + 20, 4, { texture: resources.share_right, visiable: false }))
         }
         this.on('tap', e => {
             switch (e.target) {
