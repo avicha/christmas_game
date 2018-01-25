@@ -4,6 +4,7 @@ import Rectangle from '../../prime/rectangle'
 import Vector2 from '../../prime/vector2'
 import Text from '../../prime/ui/text'
 import ChristmasMan from '../sprites/christmas_man'
+import House from '../sprites/house'
 import resources from '../resources'
 
 export default class MainScene extends Scene {
@@ -25,7 +26,7 @@ export default class MainScene extends Scene {
         this.scream_sound = resources.scream_sound
         this.bg = this.addGameObject(new Sprite(0, 0, 0, { texture: resources.bg }))
         this.moon = this.addGameObject(new Sprite(game.renderStageZone.left + 82, game.renderStageZone.top + 15, 1, { texture: resources.moon }))
-        this.christmas_man = this.addGameObject(new ChristmasMan(game.renderStageZone.left + 100, game.renderStageZone.bottom - resources.house8.sizeHeight - resources.christmas_man_sprite.sizeHeight + 10, 5, { texture: resources.christmas_man_sprite, shape: new Rectangle(60, 10, 100, 180) }))
+        this.christmas_man = this.addGameObject(new ChristmasMan(game.renderStageZone.left + 100, game.renderStageZone.bottom - resources.house8.sizeHeight - resources.christmas_man_sprite.sizeHeight + 10, 5))
         this.score_board = this.addGameObject(new Sprite(game.renderStageZone.right - 270, game.renderStageZone.top + 47, 1, { texture: resources.score_board }))
         this.score_msg = this.addGameObject(new Text(game.renderStageZone.right - 184, game.renderStageZone.top + 90, 2, { text: this.score.toString(), fontFamily: 'Arial', fontSize: 40, lineHeight: 40, fontColor: '#fff', align: Text.ALIGN.CENTER, valign: Text.VALIGN.MIDDLE }))
         this.play_btn = this.addGameObject(new Sprite(game.renderStageZone.right - 342, game.renderStageZone.top + 60, 10, { texture: resources.play, visiable: !game.isMute }))
@@ -35,7 +36,7 @@ export default class MainScene extends Scene {
             this.addSnow()
         }
         this.houses = []
-        let house = this.addGameObject(new Sprite(game.renderStageZone.left + 3, game.renderStageZone.bottom - resources.house8.sizeHeight, 3, { texture: resources.house8, speed: this.speed, health: 0 }))
+        let house = this.addGameObject(new House(game.renderStageZone.left + 3, game.renderStageZone.bottom - resources.house8.sizeHeight, 3, { speed: this.speed, health: 0, type: 8 }))
         this.houses.push(house);
         for (let i = 1; i < 3; i++) {
             this.addHouse()
@@ -103,7 +104,6 @@ export default class MainScene extends Scene {
         return (man_shape.right > house_shape.left) && (man_shape.left < house_shape.right) && (man_shape.bottom <= house_shape.top) && (man_shape.bottom + (this.christmas_man.speed.y + this.christmas_man.acceleration.y * dt) * dt >= house_shape.top)
     }
     update(dt) {
-        super.update(dt)
         this.trees = this.trees.filter(tree => {
             if (tree.position.x + tree.texture.sizeWidth <= 0) {
                 tree.kill()
@@ -189,6 +189,7 @@ export default class MainScene extends Scene {
                 }, 1000)
             }
         }
+        super.update(dt)
     }
     addSnow() {
         let pos_left = 200 + Math.random() * this.game.renderStageZone.width
@@ -220,37 +221,7 @@ export default class MainScene extends Scene {
             let last_house_pos = last_house ? (last_house.position.x + last_house.texture.sizeWidth) : 0
             let house_pos_left = parseInt(last_house_pos + (1 + Math.random() - this.score / this.total_houses) * 120)
             let house_pos_top = this.game.renderStageZone.bottom - house_texture.sizeHeight
-            let shape;
-            switch (house_type) {
-                case 1:
-                    shape = new Rectangle(10, 0, house_texture.sizeWidth - 20, house_texture.sizeHeight)
-                    break
-                case 2:
-                    shape = new Rectangle(20, 0, house_texture.sizeWidth - 40, house_texture.sizeHeight)
-                    break
-                case 3:
-                    shape = new Rectangle(55, 0, house_texture.sizeWidth - 110, house_texture.sizeHeight)
-                    break
-                case 4:
-                    shape = new Rectangle(60, 0, house_texture.sizeWidth - 130, house_texture.sizeHeight)
-                    break
-                case 5:
-                    shape = new Rectangle(90, 0, house_texture.sizeWidth - 190, house_texture.sizeHeight)
-                    break
-                case 6:
-                    shape = new Rectangle(80, 0, house_texture.sizeWidth - 180, house_texture.sizeHeight)
-                    break
-                case 7:
-                    shape = new Rectangle(100, 0, house_texture.sizeWidth - 200, house_texture.sizeHeight)
-                    break
-                case 8:
-                    shape = new Rectangle(40, 0, house_texture.sizeWidth - 80, house_texture.sizeHeight)
-                    break
-                default:
-                    shape = new Rectangle(0, 0, house_texture.sizeWidth, house_texture.sizeHeight)
-                    break
-            }
-            let house = this.addGameObject(new Sprite(house_pos_left, house_pos_top, 3, { texture: house_texture, speed: this.speed, shape: shape, health: 100 }))
+            let house = this.addGameObject(new House(house_pos_left, house_pos_top, 3, { speed: this.speed, health: 100, type: house_type }))
             this.houses.push(house)
             if (this.added_houses == this.total_houses) {
                 this.flag = this.addGameObject(new Sprite(house_pos_left, house_pos_top - resources.flag.sizeHeight, 3, { texture: resources.flag, speed: this.speed }))

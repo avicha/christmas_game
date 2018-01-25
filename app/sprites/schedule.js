@@ -1,7 +1,10 @@
 import Sprite from '../../prime/sprite'
+import resources from '../resources'
+
 export default class Schedule extends Sprite {
     constructor(...args) {
         super(...args)
+        this.texture = resources.schedule
         this.progress = 0
     }
     setProgress(progress) {
