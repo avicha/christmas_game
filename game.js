@@ -1,19 +1,29 @@
 import Engine from 'prime/engine'
 import Loading from 'app/scenes/loading'
+import Begin from 'app/scenes/begin'
 import Main from 'app/scenes/main'
 import PrimaryPrize from 'app/scenes/primary_prize'
 import MediumPrize from 'app/scenes/medium_prize'
 import SuperPrize from 'app/scenes/super_prize'
-import Adapter from 'app/adapter'
+import Adapter from 'prime/adapter'
 
 const beginGame = () => {
-    let game = new Engine({ debug: false, stageScaleMode: 'cover', fps: 60, orientation: 'landscape' })
+    let game = new Engine({
+        debug: false,
+        stageScaleMode: 'cover',
+        fps: 60,
+        orientation: 'landscape'
+    })
     game.setStageSize(1780, 750)
-    game.launch(Loading, { next: 'Main' })
+    game.launch(Loading, {
+        next: 'Begin'
+    })
     game.on('switchScene', (sceneName, ...args) => {
         switch (sceneName) {
             case 'Loading':
                 return game.launch(Loading, ...args)
+            case 'Begin':
+                return game.launch(Begin, ...args)
             case 'Main':
                 return game.launch(Main, ...args)
             case 'PrimaryPrize':
@@ -24,7 +34,10 @@ const beginGame = () => {
                 return game.launch(SuperPrize, ...args)
         }
     })
-    game.on('error', ({ message, stack }) => {
+    game.on('error', ({
+        message,
+        stack
+    }) => {
         console.error(message)
     })
     return game
@@ -59,7 +72,10 @@ if (Adapter.platform == 'weixin_web') {
                     })
                 })
                 wx.error = (res) => {
-                    game.trigger('error', { message: res.errMsg, stack: null })
+                    game.trigger('error', {
+                        message: res.errMsg,
+                        stack: null
+                    })
                 }
             }
         }

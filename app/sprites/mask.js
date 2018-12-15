@@ -7,7 +7,7 @@ export default class Mask extends GameObject {
         this.shape = new Rectangle(0, 0, this.width, this.height)
     }
     draw(ctx) {
-        if (this.visiable) {
+        if (this.visible) {
             ctx.fillStyle = this.backgroundColor
             ctx.fillRect(this.position.x, this.position.y, this.width, this.height)
         }

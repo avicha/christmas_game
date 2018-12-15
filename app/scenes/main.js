@@ -24,19 +24,43 @@ export default class MainScene extends Scene {
         this.count_down_sound = resources.count_down_sound
         this.jump_sound = resources.jump_sound
         this.scream_sound = resources.scream_sound
-        this.bg = this.addGameObject(new Sprite(0, 0, 0, { texture: resources.bg }))
-        this.moon = this.addGameObject(new Sprite(game.renderStageZone.left + 82, game.renderStageZone.top + 15, 1, { texture: resources.moon }))
+        this.bg = this.addGameObject(new Sprite(0, 0, 0, {
+            texture: resources.bg
+        }))
+        this.moon = this.addGameObject(new Sprite(game.renderStageZone.left + 82, game.renderStageZone.top + 15, 1, {
+            texture: resources.moon
+        }))
         this.christmas_man = this.addGameObject(new ChristmasMan(game.renderStageZone.left + 100, game.renderStageZone.bottom - resources.house8.sizeHeight - resources.christmas_man_sprite.sizeHeight + 10, 5))
-        this.score_board = this.addGameObject(new Sprite(game.renderStageZone.right - 270, game.renderStageZone.top + 47, 1, { texture: resources.score_board }))
-        this.score_msg = this.addGameObject(new Text(game.renderStageZone.right - 184, game.renderStageZone.top + 90, 2, { text: this.score.toString(), fontFamily: 'Arial', fontSize: 40, lineHeight: 40, fontColor: '#fff', align: Text.ALIGN.CENTER, valign: Text.VALIGN.MIDDLE }))
-        this.play_btn = this.addGameObject(new Sprite(game.renderStageZone.right - 342, game.renderStageZone.top + 60, 10, { texture: resources.play, visiable: !game.isMute }))
-        this.mute_btn = this.addGameObject(new Sprite(game.renderStageZone.right - 342, game.renderStageZone.top + 60, 10, { texture: resources.mute, visiable: game.isMute }))
+        this.score_board = this.addGameObject(new Sprite(game.renderStageZone.right - 270, game.renderStageZone.top + 47, 1, {
+            texture: resources.score_board
+        }))
+        this.score_msg = this.addGameObject(new Text(game.renderStageZone.right - 184, game.renderStageZone.top + 90, 2, {
+            text: this.score.toString(),
+            fontFamily: 'Arial',
+            fontSize: 40,
+            lineHeight: 40,
+            fontColor: '#fff',
+            align: Text.ALIGN.CENTER,
+            valign: Text.VALIGN.MIDDLE
+        }))
+        this.play_btn = this.addGameObject(new Sprite(game.renderStageZone.right - 342, game.renderStageZone.top + 60, 10, {
+            texture: resources.play,
+            visible: !game.isMute
+        }))
+        this.mute_btn = this.addGameObject(new Sprite(game.renderStageZone.right - 342, game.renderStageZone.top + 60, 10, {
+            texture: resources.mute,
+            visible: game.isMute
+        }))
         this.snows = [];
         for (let i = 0; i < this.snow_count; i++) {
             this.addSnow()
         }
         this.houses = []
-        let house = this.addGameObject(new House(game.renderStageZone.left + 3, game.renderStageZone.bottom - resources.house8.sizeHeight, 3, { speed: this.speed, health: 0, type: 8 }))
+        let house = this.addGameObject(new House(game.renderStageZone.left + 3, game.renderStageZone.bottom - resources.house8.sizeHeight, 3, {
+            speed: this.speed,
+            health: 0,
+            type: 8
+        }))
         this.houses.push(house);
         for (let i = 1; i < 3; i++) {
             this.addHouse()
@@ -45,10 +69,21 @@ export default class MainScene extends Scene {
         for (let i = 0; i < 2; i++) {
             this.addTree()
         }
-        this.num_3 = this.addGameObject(new Sprite(game.renderStageZone.pivot.x - resources.num_3.sizeWidth / 2, game.renderStageZone.top + 140, 10, { texture: resources.num_3 }))
-        this.num_2 = this.addGameObject(new Sprite(game.renderStageZone.pivot.x - resources.num_2.sizeWidth / 2, game.renderStageZone.top + 166, 10, { texture: resources.num_2, visiable: false }))
-        this.num_1 = this.addGameObject(new Sprite(game.renderStageZone.pivot.x - resources.num_1.sizeWidth / 2, game.renderStageZone.top + 152, 10, { texture: resources.num_1, visiable: false }))
-        this.go = this.addGameObject(new Sprite(game.renderStageZone.pivot.x - resources.go.sizeWidth / 2, game.renderStageZone.top + 218, 10, { texture: resources.go, visiable: false }))
+        this.num_3 = this.addGameObject(new Sprite(game.renderStageZone.pivot.x - resources.num_3.sizeWidth / 2, game.renderStageZone.top + 140, 10, {
+            texture: resources.num_3
+        }))
+        this.num_2 = this.addGameObject(new Sprite(game.renderStageZone.pivot.x - resources.num_2.sizeWidth / 2, game.renderStageZone.top + 166, 10, {
+            texture: resources.num_2,
+            visible: false
+        }))
+        this.num_1 = this.addGameObject(new Sprite(game.renderStageZone.pivot.x - resources.num_1.sizeWidth / 2, game.renderStageZone.top + 152, 10, {
+            texture: resources.num_1,
+            visible: false
+        }))
+        this.go = this.addGameObject(new Sprite(game.renderStageZone.pivot.x - resources.go.sizeWidth / 2, game.renderStageZone.top + 218, 10, {
+            texture: resources.go,
+            visible: false
+        }))
         if (!this.game.isMute) {
             this.count_down_sound.play()
         }
@@ -58,14 +93,14 @@ export default class MainScene extends Scene {
                     this.bgm.pause();
                     this.count_down_sound.pause()
                     this.game.isMute = true
-                    this.mute_btn.visiable = true
-                    this.play_btn.visiable = false
+                    this.mute_btn.visible = true
+                    this.play_btn.visible = false
                     break
                 case this.mute_btn:
                     this.bgm.play()
                     this.game.isMute = false
-                    this.mute_btn.visiable = false
-                    this.play_btn.visiable = true
+                    this.mute_btn.visible = false
+                    this.play_btn.visible = true
                     break
                 default:
                     this.jump()
@@ -74,13 +109,13 @@ export default class MainScene extends Scene {
         })
         setTimeout(() => {
             this.num_3.kill()
-            this.num_2.visiable = true
+            this.num_2.visible = true
             setTimeout(() => {
                 this.num_2.kill()
-                this.num_1.visiable = true
+                this.num_1.visible = true
                 setTimeout(() => {
                     this.num_1.kill()
-                    this.go.visiable = true
+                    this.go.visible = true
                     this.begin()
                 }, 1000)
             }, 1000)
@@ -138,7 +173,7 @@ export default class MainScene extends Scene {
                     if (house.health) {
                         house.health -= 100
                         this.score++
-                            this.score_msg.setText(this.score.toString())
+                        this.score_msg.setText(this.score.toString())
                     }
                     if (this.christmas_man.currentAnimation != this.christmas_man.animations.run) {
                         this.christmas_man.setCurrentAnim('run')
@@ -178,12 +213,18 @@ export default class MainScene extends Scene {
                 this.is_ended = true
                 setTimeout(() => {
                     if (this.score <= 10) {
-                        this.trigger('switchScene', 'PrimaryPrize', { score: this.score })
+                        this.trigger('switchScene', 'PrimaryPrize', {
+                            score: this.score
+                        })
                     } else {
                         if (this.score < this.total_houses) {
-                            this.trigger('switchScene', 'MediumPrize', { score: this.score })
+                            this.trigger('switchScene', 'MediumPrize', {
+                                score: this.score
+                            })
                         } else {
-                            this.trigger('switchScene', 'SuperPrize', { score: this.score })
+                            this.trigger('switchScene', 'SuperPrize', {
+                                score: this.score
+                            })
                         }
                     }
                 }, 1000)
@@ -196,7 +237,11 @@ export default class MainScene extends Scene {
         let pos_top = -50 + Math.random() * -50
         let scale = 0.5 + Math.random() * 0.5
         let speed = (this.game.renderStageZone.bottom - pos_top) / parseInt(10 + 4 * pos_top / 100)
-        let snow = this.addGameObject(new Sprite(this.game.renderStageZone.left + pos_left, this.game.renderStageZone.top + pos_top, 5, { texture: resources.snow, speed: new Vector2(0, 0), scale: new Vector2(scale, scale) }))
+        let snow = this.addGameObject(new Sprite(this.game.renderStageZone.left + pos_left, this.game.renderStageZone.top + pos_top, 5, {
+            texture: resources.snow,
+            speed: new Vector2(0, 0),
+            scale: new Vector2(scale, scale)
+        }))
         this.snows.push(snow)
         setTimeout(function() {
             snow.speed.set(-30, speed)
@@ -208,23 +253,33 @@ export default class MainScene extends Scene {
         if (last_tree_pos < 2 * this.game.renderStageZone.width) {
             let tree_texture = Math.random() < 0.5 ? resources.tree1 : resources.tree2
             let tree_pos = parseInt(last_tree_pos + (0.2 + Math.random() * 0.8) * 500)
-            let tree = this.addGameObject(new Sprite(tree_pos, this.game.renderStageZone.bottom - tree_texture.sizeHeight, (Math.random() < 0.5 ? 2 : 4), { texture: tree_texture, speed: this.speed }))
+            let tree = this.addGameObject(new Sprite(tree_pos, this.game.renderStageZone.bottom - tree_texture.sizeHeight, (Math.random() < 0.5 ? 2 : 4), {
+                texture: tree_texture,
+                speed: this.speed
+            }))
             this.trees.push(tree)
         }
     }
     addHouse() {
         if (this.added_houses < this.total_houses) {
             this.added_houses++
-                let house_type = this.added_houses == this.total_houses ? 8 : parseInt(Math.random() * 100) % 4 + 1
+            let house_type = this.added_houses == this.total_houses ? 8 : parseInt(Math.random() * 100) % 4 + 1
             let house_texture = resources['house' + house_type]
             let last_house = this.houses[this.houses.length - 1]
             let last_house_pos = last_house ? (last_house.position.x + last_house.texture.sizeWidth) : 0
             let house_pos_left = parseInt(last_house_pos + (1 + Math.random() - this.score / this.total_houses) * 120)
             let house_pos_top = this.game.renderStageZone.bottom - house_texture.sizeHeight
-            let house = this.addGameObject(new House(house_pos_left, house_pos_top, 3, { speed: this.speed, health: 100, type: house_type }))
+            let house = this.addGameObject(new House(house_pos_left, house_pos_top, 3, {
+                speed: this.speed,
+                health: 100,
+                type: house_type
+            }))
             this.houses.push(house)
             if (this.added_houses == this.total_houses) {
-                this.flag = this.addGameObject(new Sprite(house_pos_left, house_pos_top - resources.flag.sizeHeight, 3, { texture: resources.flag, speed: this.speed }))
+                this.flag = this.addGameObject(new Sprite(house_pos_left, house_pos_top - resources.flag.sizeHeight, 3, {
+                    texture: resources.flag,
+                    speed: this.speed
+                }))
             }
         }
     }

@@ -2,9 +2,22 @@ import Texture from '../prime/texture'
 import Sound from '../prime/sound'
 
 export default {
+    // loading页面素材
     christmas_man_sprite: new Texture('res/textures/christmas_man_sprite.png', 3, 5, 180, 200),
     loading_bg: new Texture('res/textures/loading_bg.png'),
     schedule: new Texture('res/textures/schedule.png', 1, 1),
+    // 开始页素材
+    bg1: new Texture('res/textures/bg1.png'),
+    bg2: new Texture('res/textures/bg2.png'),
+    chimney: new Texture('res/textures/chimney.png'),
+    tree3: new Texture('res/textures/tree3.png'),
+    man: new Texture('res/textures/man.png', 1, 3, 400, 522),
+    moon: new Texture('res/textures/moon.png', 1, 1),
+    snow: new Texture('res/textures/snow.png', 1, 1, 50, 50),
+    title: new Texture('res/textures/title.png', 1, 1),
+    begin: new Texture('res/textures/begin.png', 1, 1),
+    bgm1: new Sound('res/sounds/bgm1.mp3'),
+    // 游戏页素材
     bgm2: new Sound('res/sounds/bgm2.mp3'),
     bgm3: new Sound('res/sounds/bgm3.mp3'),
     count_down_sound: new Sound('res/sounds/count_down.mp3'),
@@ -13,9 +26,6 @@ export default {
     bingo_sound: new Sound('res/sounds/bingo.mp3'),
     play: new Texture('res/textures/play.png', 1, 1),
     mute: new Texture('res/textures/mute.png', 1, 1),
-    moon: new Texture('res/textures/moon.png', 1, 1),
-    man: new Texture('res/textures/man.png', 1, 3, 400, 522),
-    snow: new Texture('res/textures/snow.png', 1, 1, 50, 50),
     num_1: new Texture('res/textures/number_1.png', 1, 1),
     num_2: new Texture('res/textures/number_2.png', 1, 1),
     num_3: new Texture('res/textures/number_3.png', 1, 1),
@@ -33,6 +43,7 @@ export default {
     house8: new Texture('res/textures/house8.png', 1, 1),
     score_board: new Texture('res/textures/score_board.png', 1, 1),
     flag: new Texture('res/textures/flag.png', 1, 1),
+    //结果页素材
     primary_bg: new Texture('res/textures/primary_bg.png', 1, 1),
     didi_logo: new Texture('res/textures/didi_logo.png', 1, 1),
     christmas_man: new Texture('res/textures/christmas_man.png', 1, 1),
