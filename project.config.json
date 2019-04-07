@@ -8,10 +8,12 @@
 		"newFeature": true
 	},
 	"compileType": "game",
-	"libVersion": "2.4.2",
-	"appid": "touristappid",
-	"projectname": "christmas_game",
+	"libVersion": "2.6.4",
+	"appid": "wx6ac3f5090a6b99c5",
+	"projectname": "src",
 	"isGameTourist": true,
+	"simulatorType": "wechat",
+	"simulatorPluginLibVersion": {},
 	"condition": {
 		"search": {
 			"current": -1,

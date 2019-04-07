@@ -7,7 +7,7 @@ import Adapter from '../../prime/adapter'
 
 export default class PrimaryPrize extends Scene {
     constructor(game, opts) {
-        super()
+        super(game)
         game.opts.stageColor = null
         this.game = game
         this.score = (opts.score || 0).toString()

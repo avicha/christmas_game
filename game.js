@@ -8,7 +8,7 @@ import SuperPrize from 'app/scenes/super_prize'
 import Adapter from 'prime/adapter'
 
 const beginGame = () => {
-    let game = new Engine({
+    const game = new Engine({
         debug: false,
         stageScaleMode: 'cover',
         fps: 60,
@@ -44,12 +44,12 @@ const beginGame = () => {
 }
 
 if (Adapter.platform == 'weixin_web') {
-    let game = beginGame()
+    const game = beginGame()
     game.jsApiList = ['onMenuShareTimeline', 'onMenuShareAppMessage', 'onMenuShareQQ', 'onMenuShareWeibo', 'onMenuShareQZone']
-    let xhr = new XMLHttpRequest()
+    const xhr = new XMLHttpRequest()
     xhr.onreadystatechange = function() {
         if (xhr.readyState == 4 && xhr.status == 200) {
-            let data = JSON.parse(this.responseText)
+            const data = JSON.parse(this.responseText)
             if (!data.errcode) {
                 wx.config(data.result)
                 wx.ready(() => {

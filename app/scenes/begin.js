@@ -8,7 +8,7 @@ import Man from '../sprites/man'
 
 export default class BeginScene extends Scene {
     constructor(game) {
-        super()
+        super(game)
         game.opts.stageColor = null
         this.game = game
         this.snow_count = 20
@@ -18,23 +18,28 @@ export default class BeginScene extends Scene {
             texture: resources.bg1,
             speed: this.bg_speed
         }))
-        this.bg2 = this.addGameObject(new Sprite(game.renderStageZone.pivot.x + 443, resources.bg1.sizeHeight - resources.bg2.sizeHeight, 2, {
+        this.bg2 = this.addGameObject(new Sprite(443, resources.bg1.sizeHeight - resources.bg2.sizeHeight, 2, {
             texture: resources.bg2,
-            speed: this.bg_speed
+            speed: this.bg_speed,
+            fixed: 'center'
         }))
-        this.moon = this.addGameObject(new Sprite(game.renderStageZone.right - 344, game.renderStageZone.top + 36, 1, {
-            texture: resources.moon
+        this.moon = this.addGameObject(new Sprite(-344, 36, 1, {
+            texture: resources.moon,
+            fixed: 'top-right'
         }))
-        this.tree = this.addGameObject(new Sprite(game.renderStageZone.right - resources.tree3.sizeWidth, resources.bg1.sizeHeight - resources.tree3.sizeHeight, 3, {
+        this.tree = this.addGameObject(new Sprite(-resources.tree3.sizeWidth, resources.bg1.sizeHeight - resources.tree3.sizeHeight, 3, {
             texture: resources.tree3,
-            speed: this.bg_speed
+            speed: this.bg_speed,
+            fixed: 'right'
         }))
-        this.chimney = this.addGameObject(new Sprite(game.renderStageZone.left, resources.bg1.sizeHeight - resources.chimney.sizeHeight, 3, {
+        this.chimney = this.addGameObject(new Sprite(0, resources.bg1.sizeHeight - resources.chimney.sizeHeight, 3, {
             texture: resources.chimney,
-            speed: this.bg_speed
+            speed: this.bg_speed,
+            fixed: 'left'
         }))
-        this.man = this.addGameObject(new Man(game.renderStageZone.left, resources.bg1.sizeHeight - resources.man.sizeHeight - 87, 6, {
-            speed: this.bg_speed
+        this.man = this.addGameObject(new Man(0, resources.bg1.sizeHeight - resources.man.sizeHeight - 87, 6, {
+            speed: this.bg_speed,
+            fixed: 'left'
         }))
         this.snows = [];
         for (let i = 0; i < this.snow_count; i++) {
@@ -43,7 +48,7 @@ export default class BeginScene extends Scene {
         if (!this.game.isMute) {
             this.bgm.play(true)
         }
-        this.p1 = this.addGameObject(new Text(game.renderStageZone.pivot.x, 280, 10, {
+        this.p1 = this.addGameObject(new Text(0, 280, 10, {
             text: '叮叮当，叮叮当，据可靠消息人士透露，',
             fontFamily: 'Arial',
             fontSize: 40,
@@ -51,7 +56,8 @@ export default class BeginScene extends Scene {
             fontColor: '#fff',
             align: Text.ALIGN.CENTER,
             valign: Text.VALIGN.TOP,
-            alpha: 0
+            alpha: 0,
+            fixed: 'center'
         }))
         new TWEEN.Tween(this.p1).to({
             alpha: [1, 1, 1, 0.5, 0]
@@ -59,7 +65,7 @@ export default class BeginScene extends Scene {
         new TWEEN.Tween(this.p1.position).to({
             y: 240
         }, 2000).easing(TWEEN.Easing.Linear.None).delay(4000).start()
-        this.p2 = this.addGameObject(new Text(game.renderStageZone.pivot.x, 348, 10, {
+        this.p2 = this.addGameObject(new Text(0, 348, 10, {
             text: '圣诞老人将于明日午夜时分来送货。',
             fontFamily: 'Arial',
             fontSize: 40,
@@ -67,7 +73,8 @@ export default class BeginScene extends Scene {
             fontColor: '#fff',
             align: Text.ALIGN.CENTER,
             valign: Text.VALIGN.TOP,
-            alpha: 0
+            alpha: 0,
+            fixed: 'center'
         }))
         new TWEEN.Tween(this.p2).to({
             alpha: [1, 1, 0.5, 0]
@@ -75,7 +82,7 @@ export default class BeginScene extends Scene {
         new TWEEN.Tween(this.p2.position).to({
             y: 308
         }, 2000).easing(TWEEN.Easing.Linear.None).delay(4000).start()
-        this.p3 = this.addGameObject(new Text(game.renderStageZone.pivot.x, 410, 10, {
+        this.p3 = this.addGameObject(new Text(0, 410, 10, {
             text: '过关时，经海关人士检测，巨型包裹内含iPhoneX一部！',
             fontFamily: 'Arial',
             fontSize: 40,
@@ -83,7 +90,8 @@ export default class BeginScene extends Scene {
             fontColor: '#fff',
             align: Text.ALIGN.CENTER,
             valign: Text.VALIGN.TOP,
-            alpha: 0
+            alpha: 0,
+            fixed: 'center'
         }))
         new TWEEN.Tween(this.p3).to({
             alpha: [1, 0.5, 0]
@@ -91,7 +99,7 @@ export default class BeginScene extends Scene {
         new TWEEN.Tween(this.p3.position).to({
             y: 370
         }, 2000).easing(TWEEN.Easing.Linear.None).delay(4000).start()
-        this.p4 = this.addGameObject(new Text(game.renderStageZone.pivot.x, 300, 10, {
+        this.p4 = this.addGameObject(new Text(0, 300, 10, {
             text: '礼品太多，忙不过来的圣诞老人发出紧急求助',
             fontFamily: 'Arial',
             fontSize: 40,
@@ -99,7 +107,8 @@ export default class BeginScene extends Scene {
             fontColor: '#fff',
             align: Text.ALIGN.CENTER,
             valign: Text.VALIGN.TOP,
-            alpha: 0
+            alpha: 0,
+            fixed: 'center'
         }))
         new TWEEN.Tween(this.p4).to({
             alpha: [1, 1, 0.5, 0]
@@ -107,7 +116,7 @@ export default class BeginScene extends Scene {
         new TWEEN.Tween(this.p4.position).to({
             y: 260
         }, 2000).easing(TWEEN.Easing.Linear.None).delay(9000).start()
-        this.p5 = this.addGameObject(new Text(game.renderStageZone.pivot.x, 352, 10, {
+        this.p5 = this.addGameObject(new Text(0, 352, 10, {
             text: '“快来帮我派送礼物，派者有份！”',
             fontFamily: 'Arial',
             fontSize: 40,
@@ -115,7 +124,8 @@ export default class BeginScene extends Scene {
             fontColor: '#fff',
             align: Text.ALIGN.CENTER,
             valign: Text.VALIGN.TOP,
-            alpha: 0
+            alpha: 0,
+            fixed: 'center'
         }))
         new TWEEN.Tween(this.p5).to({
             alpha: [1, 0.5, 0]
@@ -123,10 +133,11 @@ export default class BeginScene extends Scene {
         new TWEEN.Tween(this.p5.position).to({
             y: 312
         }, 2000).easing(TWEEN.Easing.Linear.None).delay(9000).start()
-        this.title = this.addGameObject(new Sprite(game.renderStageZone.pivot.x - resources.title.sizeWidth / 2, 108, 10, {
+        this.title = this.addGameObject(new Sprite(0 - resources.title.sizeWidth / 2, 108, 10, {
             texture: resources.title,
             alpha: 0,
-            visible: false
+            visible: false,
+            fixed: 'center'
         }))
         this.titleTween1 = new TWEEN.Tween(this.title).to({
             alpha: 1
@@ -135,10 +146,11 @@ export default class BeginScene extends Scene {
             x: [1.2, 0.7, 1.1, 1],
             y: [1.2, 0.7, 1.1, 1]
         }, 1500).easing(TWEEN.Easing.Quadratic.InOut)
-        this.begin = this.addGameObject(new Sprite(game.renderStageZone.pivot.x - resources.begin.sizeWidth / 2, 472, 10, {
+        this.begin = this.addGameObject(new Sprite(-resources.begin.sizeWidth / 2, 472, 10, {
             texture: resources.begin,
             alpha: 0,
-            visible: false
+            visible: false,
+            fixed: 'center'
         }))
         this.beginTween = new TWEEN.Tween(this.begin).to({
             angle: -30 / 180 * Math.PI
@@ -164,14 +176,15 @@ export default class BeginScene extends Scene {
         })
     }
     addSnow() {
-        let pos_left = 200 + Math.random() * this.game.renderStageZone.width
-        let pos_top = -50 + Math.random() * -50
-        let scale = 0.5 + Math.random() * 0.5
-        let speed = (this.game.renderStageZone.bottom - pos_top) / parseInt(10 + 4 * pos_top / 100)
-        let snow = this.addGameObject(new Sprite(this.game.renderStageZone.left + pos_left, this.game.renderStageZone.top + pos_top, 5, {
+        const pos_left = 200 + Math.random() * this.game.renderStageZone.width
+        const pos_top = -50 + Math.random() * -50
+        const scale = 0.5 + Math.random() * 0.5
+        const speed = (this.game.renderStageZone.bottom - pos_top) / parseInt(10 + 4 * pos_top / 100)
+        const snow = this.addGameObject(new Sprite(pos_left, pos_top, 5, {
             texture: resources.snow,
             speed: new Vector2(0, 0),
-            scale: new Vector2(scale, scale)
+            scale: new Vector2(scale, scale),
+            fixed: 'top-left'
         }))
         this.snows.push(snow)
         setTimeout(function() {

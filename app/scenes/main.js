@@ -10,7 +10,7 @@ import resources from '../resources'
 export default class MainScene extends Scene {
 
     constructor(game) {
-        super()
+        super(game)
         game.opts.stageColor = null
         this.game = game
         this.snow_count = 20
@@ -27,39 +27,47 @@ export default class MainScene extends Scene {
         this.bg = this.addGameObject(new Sprite(0, 0, 0, {
             texture: resources.bg
         }))
-        this.moon = this.addGameObject(new Sprite(game.renderStageZone.left + 82, game.renderStageZone.top + 15, 1, {
-            texture: resources.moon
+        this.moon = this.addGameObject(new Sprite(82, 15, 1, {
+            texture: resources.moon,
+            fixed: 'top-left'
         }))
-        this.christmas_man = this.addGameObject(new ChristmasMan(game.renderStageZone.left + 100, game.renderStageZone.bottom - resources.house8.sizeHeight - resources.christmas_man_sprite.sizeHeight + 10, 5))
-        this.score_board = this.addGameObject(new Sprite(game.renderStageZone.right - 270, game.renderStageZone.top + 47, 1, {
-            texture: resources.score_board
+        this.christmas_man = this.addGameObject(new ChristmasMan(100, -resources.house8.sizeHeight - resources.christmas_man_sprite.sizeHeight + 10, 5, {
+            fixed: 'bottom-left'
         }))
-        this.score_msg = this.addGameObject(new Text(game.renderStageZone.right - 184, game.renderStageZone.top + 90, 2, {
+        this.score_board = this.addGameObject(new Sprite(-270, 47, 1, {
+            texture: resources.score_board,
+            fixed: 'top-right'
+        }))
+        this.score_msg = this.addGameObject(new Text(-184, 90, 2, {
             text: this.score.toString(),
             fontFamily: 'Arial',
             fontSize: 40,
             lineHeight: 40,
             fontColor: '#fff',
             align: Text.ALIGN.CENTER,
-            valign: Text.VALIGN.MIDDLE
+            valign: Text.VALIGN.MIDDLE,
+            fixed: 'top-right'
         }))
-        this.play_btn = this.addGameObject(new Sprite(game.renderStageZone.right - 342, game.renderStageZone.top + 60, 10, {
+        this.play_btn = this.addGameObject(new Sprite(-342, 60, 10, {
             texture: resources.play,
-            visible: !game.isMute
+            visible: !game.isMute,
+            fixed: 'top-right'
         }))
-        this.mute_btn = this.addGameObject(new Sprite(game.renderStageZone.right - 342, game.renderStageZone.top + 60, 10, {
+        this.mute_btn = this.addGameObject(new Sprite(-342, 60, 10, {
             texture: resources.mute,
-            visible: game.isMute
+            visible: game.isMute,
+            fixed: 'top-right'
         }))
         this.snows = [];
         for (let i = 0; i < this.snow_count; i++) {
             this.addSnow()
         }
         this.houses = []
-        let house = this.addGameObject(new House(game.renderStageZone.left + 3, game.renderStageZone.bottom - resources.house8.sizeHeight, 3, {
+        const house = this.addGameObject(new House(3, -resources.house8.sizeHeight, 3, {
             speed: this.speed,
             health: 0,
-            type: 8
+            type: 8,
+            fixed: 'bottom-left'
         }))
         this.houses.push(house);
         for (let i = 1; i < 3; i++) {
@@ -69,20 +77,24 @@ export default class MainScene extends Scene {
         for (let i = 0; i < 2; i++) {
             this.addTree()
         }
-        this.num_3 = this.addGameObject(new Sprite(game.renderStageZone.pivot.x - resources.num_3.sizeWidth / 2, game.renderStageZone.top + 140, 10, {
-            texture: resources.num_3
+        this.num_3 = this.addGameObject(new Sprite(-resources.num_3.sizeWidth / 2, 140, 10, {
+            texture: resources.num_3,
+            fixed: 'top-center'
         }))
-        this.num_2 = this.addGameObject(new Sprite(game.renderStageZone.pivot.x - resources.num_2.sizeWidth / 2, game.renderStageZone.top + 166, 10, {
+        this.num_2 = this.addGameObject(new Sprite(-resources.num_2.sizeWidth / 2, 166, 10, {
             texture: resources.num_2,
-            visible: false
+            visible: false,
+            fixed: 'top-center'
         }))
-        this.num_1 = this.addGameObject(new Sprite(game.renderStageZone.pivot.x - resources.num_1.sizeWidth / 2, game.renderStageZone.top + 152, 10, {
+        this.num_1 = this.addGameObject(new Sprite(-resources.num_1.sizeWidth / 2, 152, 10, {
             texture: resources.num_1,
-            visible: false
+            visible: false,
+            fixed: 'top-center'
         }))
-        this.go = this.addGameObject(new Sprite(game.renderStageZone.pivot.x - resources.go.sizeWidth / 2, game.renderStageZone.top + 218, 10, {
+        this.go = this.addGameObject(new Sprite(-resources.go.sizeWidth / 2, 218, 10, {
             texture: resources.go,
-            visible: false
+            visible: false,
+            fixed: 'top-center'
         }))
         if (!this.game.isMute) {
             this.count_down_sound.play()
@@ -134,8 +146,8 @@ export default class MainScene extends Scene {
         }, 1000)
     }
     collide(house, dt) {
-        let man_shape = this.christmas_man.shape.relativeTo(this.christmas_man.position)
-        let house_shape = house.shape.relativeTo(house.position)
+        const man_shape = this.christmas_man.shape.relativeTo(this.christmas_man.position)
+        const house_shape = house.shape.relativeTo(house.position)
         return (man_shape.right > house_shape.left) && (man_shape.left < house_shape.right) && (man_shape.bottom <= house_shape.top) && (man_shape.bottom + (this.christmas_man.speed.y + this.christmas_man.acceleration.y * dt) * dt >= house_shape.top)
     }
     update(dt) {
@@ -167,7 +179,7 @@ export default class MainScene extends Scene {
         }
         if (this.is_begin) {
             let is_fail = true
-            for (let house of this.houses) {
+            for (const house of this.houses) {
                 if (this.collide(house, dt) && this.christmas_man.currentAnimation != this.christmas_man.animations.down) {
                     is_fail = false
                     if (house.health) {
@@ -179,9 +191,9 @@ export default class MainScene extends Scene {
                         this.christmas_man.setCurrentAnim('run')
                         this.christmas_man.speed.set(0, 0)
                         this.christmas_man.acceleration.set(0, 0)
-                        let man_shape = this.christmas_man.shape
-                        let house_shape = house.shape.relativeTo(house.position)
-                        this.christmas_man.position.y = house_shape.top - man_shape.height - man_shape.top
+                        const man_shape = this.christmas_man.shape
+                        const house_shape = house.shape.relativeTo(house.position)
+                        this.christmas_man._position.y = -(house_shape.height + man_shape.bottom)
                     }
                 }
                 if (house.health) {
@@ -191,6 +203,8 @@ export default class MainScene extends Scene {
             if (is_fail) {
                 if (this.christmas_man.currentAnimation != this.christmas_man.animations.jump) {
                     this.christmas_man.setCurrentAnim('down')
+                    const man_shape = this.christmas_man.shape.relativeTo(this.christmas_man.position)
+                    const house_shape = this.houses[0].shape.relativeTo(this.houses[0].position)
                     this.christmas_man.acceleration.set(0, 2000)
                 }
                 if (this.christmas_man.position.y > this.game.renderStageZone.bottom && !this.is_gameover) {
@@ -202,7 +216,7 @@ export default class MainScene extends Scene {
                 }
             }
             if (this.score == this.total_houses) {
-                let last_house = this.houses[this.houses.length - 1]
+                const last_house = this.houses[this.houses.length - 1]
                 if (last_house.position.x + last_house.texture.sizeWidth / 3 <= this.game.renderStageZone.right) {
                     this.speed.set(0, 0)
                     this.christmas_man.speed.set(600, 0)
@@ -233,14 +247,15 @@ export default class MainScene extends Scene {
         super.update(dt)
     }
     addSnow() {
-        let pos_left = 200 + Math.random() * this.game.renderStageZone.width
-        let pos_top = -50 + Math.random() * -50
-        let scale = 0.5 + Math.random() * 0.5
-        let speed = (this.game.renderStageZone.bottom - pos_top) / parseInt(10 + 4 * pos_top / 100)
-        let snow = this.addGameObject(new Sprite(this.game.renderStageZone.left + pos_left, this.game.renderStageZone.top + pos_top, 5, {
+        const pos_left = 200 + Math.random() * this.game.renderStageZone.width
+        const pos_top = -50 + Math.random() * -50
+        const scale = 0.5 + Math.random() * 0.5
+        const speed = (this.game.renderStageZone.bottom - pos_top) / parseInt(10 + 4 * pos_top / 100)
+        const snow = this.addGameObject(new Sprite(pos_left, pos_top, 5, {
             texture: resources.snow,
             speed: new Vector2(0, 0),
-            scale: new Vector2(scale, scale)
+            scale: new Vector2(scale, scale),
+            fixed: 'top-left'
         }))
         this.snows.push(snow)
         setTimeout(function() {
@@ -248,14 +263,15 @@ export default class MainScene extends Scene {
         }, 10000 * Math.random())
     }
     addTree() {
-        let last_tree = this.trees[this.trees.length - 1]
-        let last_tree_pos = last_tree ? (last_tree.position.x + last_tree.texture.sizeWidth) : 0
+        const last_tree = this.trees[this.trees.length - 1]
+        const last_tree_pos = last_tree ? (last_tree.position.x + last_tree.texture.sizeWidth) : 0
         if (last_tree_pos < 2 * this.game.renderStageZone.width) {
-            let tree_texture = Math.random() < 0.5 ? resources.tree1 : resources.tree2
-            let tree_pos = parseInt(last_tree_pos + (0.2 + Math.random() * 0.8) * 500)
-            let tree = this.addGameObject(new Sprite(tree_pos, this.game.renderStageZone.bottom - tree_texture.sizeHeight, (Math.random() < 0.5 ? 2 : 4), {
+            const tree_texture = Math.random() < 0.5 ? resources.tree1 : resources.tree2
+            const tree_pos = parseInt(last_tree_pos + (0.2 + Math.random() * 0.8) * 500)
+            const tree = this.addGameObject(new Sprite(tree_pos, -tree_texture.sizeHeight, (Math.random() < 0.5 ? 2 : 4), {
                 texture: tree_texture,
-                speed: this.speed
+                speed: this.speed,
+                fixed: 'bottom'
             }))
             this.trees.push(tree)
         }
@@ -263,16 +279,17 @@ export default class MainScene extends Scene {
     addHouse() {
         if (this.added_houses < this.total_houses) {
             this.added_houses++
-            let house_type = this.added_houses == this.total_houses ? 8 : parseInt(Math.random() * 100) % 4 + 1
-            let house_texture = resources['house' + house_type]
-            let last_house = this.houses[this.houses.length - 1]
-            let last_house_pos = last_house ? (last_house.position.x + last_house.texture.sizeWidth) : 0
-            let house_pos_left = parseInt(last_house_pos + (1 + Math.random() - this.score / this.total_houses) * 120)
-            let house_pos_top = this.game.renderStageZone.bottom - house_texture.sizeHeight
-            let house = this.addGameObject(new House(house_pos_left, house_pos_top, 3, {
+            const house_type = this.added_houses == this.total_houses ? 8 : parseInt(Math.random() * 100) % 4 + 1
+            const house_texture = resources['house' + house_type]
+            const last_house = this.houses[this.houses.length - 1]
+            const last_house_pos = last_house ? (last_house.position.x + last_house.texture.sizeWidth) : 0
+            const house_pos_left = parseInt(last_house_pos + (1 + Math.random() - this.score / this.total_houses) * 120)
+            const house_pos_top = -house_texture.sizeHeight
+            const house = this.addGameObject(new House(house_pos_left, house_pos_top, 3, {
                 speed: this.speed,
                 health: 100,
-                type: house_type
+                type: house_type,
+                fixed: 'bottom'
             }))
             this.houses.push(house)
             if (this.added_houses == this.total_houses) {
