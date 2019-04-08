@@ -19,47 +19,55 @@ export default class MediumPrize extends Scene {
         this.bg = this.addGameObject(new Sprite(0, 0, 0, {
             texture: resources.primary_bg
         }))
-        this.didi_logo = this.addGameObject(new Sprite(game.renderStageZone.left + 40, game.renderStageZone.top + 40, 1, {
-            texture: resources.didi_logo
+        this.didi_logo = this.addGameObject(new Sprite(40, 40, 1, {
+            texture: resources.didi_logo,
+            fixed: 'top-left'
         }))
-        this.christmas_man = this.addGameObject(new Sprite(game.renderStageZone.right - resources.christmas_man.sizeWidth, game.renderStageZone.bottom - resources.christmas_man.sizeHeight, 2, {
-            texture: resources.christmas_man
+        this.christmas_man = this.addGameObject(new Sprite(-resources.christmas_man.sizeWidth, -resources.christmas_man.sizeHeight, 2, {
+            texture: resources.christmas_man,
+            fixed: 'bottom-right'
         }))
-        this.msg = this.addGameObject(new Text(game.renderStageZone.pivot.x, game.renderStageZone.top + 200, 1, {
+        this.msg = this.addGameObject(new Text(0, 200, 1, {
             text: '恭喜你派送了' + (this.score.length == 1 ? '        ' : '            ') + '个礼物，成为：',
             fontColor: '#fff',
             fontSize: 36,
             fontFamily: 'Arial',
             align: Text.ALIGN.CENTER,
-            valign: Text.VALIGN.TOP
+            valign: Text.VALIGN.TOP,
+            fixed: 'top-center'
         }))
-        this.score_msg = this.addGameObject(new Text(game.renderStageZone.pivot.x - (this.score.length == 1 ? 18 : 20), game.renderStageZone.top + 218, 1, {
+        this.score_msg = this.addGameObject(new Text(-(this.score.length == 1 ? 18 : 20), 218, 1, {
             text: this.score,
             fontColor: '#fed139',
             fontSize: 97,
             fontFamily: 'Arial',
             align: Text.ALIGN.CENTER,
-            valign: Text.VALIGN.MIDDLE
+            valign: Text.VALIGN.MIDDLE,
+            fixed: 'top-center'
         }))
-        this.super_title = this.addGameObject(new Sprite(game.renderStageZone.pivot.x - resources.super_title.sizeWidth / 2, game.renderStageZone.top + 277, 1, {
-            texture: resources.super_title
+        this.super_title = this.addGameObject(new Sprite(-resources.super_title.sizeWidth / 2, 277, 1, {
+            texture: resources.super_title,
+            fixed: 'top-center'
         }))
-        this.gift_btn = this.addGameObject(new Sprite(game.renderStageZone.pivot.x - resources.gift_btn.sizeWidth / 2, game.renderStageZone.top + 455, 1, {
-            texture: resources.gift_btn
+        this.gift_btn = this.addGameObject(new Sprite(-resources.gift_btn.sizeWidth / 2, 455, 1, {
+            texture: resources.gift_btn,
+            fixed: 'top-center'
         }))
-        this.intro = this.addGameObject(new Text(game.renderStageZone.left + 39, game.renderStageZone.top + 600, 1, {
+        this.intro = this.addGameObject(new Text(39, 600, 1, {
             text: '抽奖规则：\n1. 派送3个礼物但未通关的圣诞老人，可获得滴滴圣诞礼券；\n2. 通关的圣诞老人，有机会获得滴滴圣诞周边特制或礼品券，更有机会获得iPhoneX一台；\n3. 每个圣诞老人只有一次领奖机会。最终解释权归滴滴上海所有。',
             fontColor: '#a98775',
             fontSize: 22,
             lineHeight: 30,
             align: Text.ALIGN.LEFT,
-            valign: Text.VALIGN.TOP
+            valign: Text.VALIGN.TOP,
+            fixed: 'top-left'
         }))
-        this.mask = this.addGameObject(new Mask(game.renderStageZone.left, game.renderStageZone.top, 3, {
+        this.mask = this.addGameObject(new Mask(0, 0, 3, {
             width: game.renderStageZone.width,
             height: game.renderStageZone.height,
             backgroundColor: 'rgba(0, 0, 0, 0.5)',
-            visible: false
+            visible: false,
+            fixed: 'top-left'
         }))
         this.on('tap', e => {
             switch (e.target) {
