@@ -193,7 +193,7 @@ export default class MainScene extends Scene {
                         this.christmas_man.acceleration.set(0, 0)
                         const man_shape = this.christmas_man.shape
                         const house_shape = house.shape.relativeTo(house.position)
-                        this.christmas_man._position.y = -(house_shape.height + man_shape.bottom)
+                        this.christmas_man.setPositionY(-(house_shape.height + man_shape.bottom))
                     }
                 }
                 if (house.health) {
